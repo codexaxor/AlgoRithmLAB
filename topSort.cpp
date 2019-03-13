@@ -1,62 +1,78 @@
-#include <iostream>
-#include <vector>
-#include <stack>
+#include "/Users/mac/stdc++.h"
+//#include "/bits/stdc++.h"
+#define fst ios_base::sync_with_stdio(0); ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define PI acos(-1.0)
+#define INF (1<<30)
 using namespace std;
+#define rd freopen("input.txt","r",stdin)
+#define wr freopen("output.txt", "w", stdout)
+#define mem(array,int) memeset(array,int,sizeof(array))
+#define lld long long int
+#define nl cout<<endl;
+#define MX 100005
+#define MOD 1000000007
+
+
+vector<int>G[1000];
+
+int color[1000];
+
+queue<int>q;
+
+stack<int>s;
 
 int node,edge;
-vector<int>v[1000];
-int color[1000];
-stack<int>s;
+
 
 
 void DFS(int n){
 
-    color[n]=1;
-    int x;
 
-    for (int i = 0; i < v[n].size(); ++i) {
-        x = v[n][i];
+    color[n] = 1;
 
-        if(color[x] == 0)
+    for (int i=0; i<G[n].size(); i++) {
+        int x = G[n][i];
+
+        if (color[x] == 0) {
             DFS(x);
+        }
     }
 
-    color[n] = 2;
     s.push(n);
 
-
 }
 
-void CheckNode(){
 
-    for (int i = 1; i <= node; ++i) {
-        if (color[i] == 0)
+
+void TopSort(){
+
+    for (int i=0; i<node; i++) {
+        if (color[i] == 0) {
             DFS(i);
+        }
     }
-
-}
-
-
-int main() {
-
-
-    freopen("input.txt","r",stdin);
-
-    cin>>node>>edge;
-
-    for (int i = 0; i < edge; ++i) {
-        int x,y;
-        cin>>x>>y;
-        v[x].push_back(y);
-    }
-
-    CheckNode();
-
-    while (!s.empty()){
+    while (!s.empty()) {
         cout<<s.top()<<" ";
         s.pop();
     }
-    //  cout<<endl;
+
+}
+
+
+int main(){
+
+  //  rd;
+
+    cin>>node>>edge;
+    for (int i =0; i<edge; i++) {
+        int u, v;
+        cin>>u>>v;
+
+        G[u].push_back(v);
+
+    }
+    TopSort();
+
 
     return 0;
 }
