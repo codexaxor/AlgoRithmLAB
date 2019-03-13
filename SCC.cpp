@@ -1,82 +1,108 @@
-#include <iostream>
-#include <vector>
-#include <stack>
+#include "/Users/mac/stdc++.h"
+//#include "/bits/stdc++.h"
+#define fst ios_base::sync_with_stdio(0); ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define PI acos(-1.0)
+#define INF (1<<30)
 using namespace std;
+#define rd freopen("ip.txt","r",stdin)
+#define wr freopen("op.txt", "w", stdout)
+#define mem(array,int) memeset(array,int,sizeof(array))
+#define lld long long int
+#define nl cout<<endl;
+#define MX 100005
+#define MOD 1000000007
+
+
+vector<int>G[1000];
+vector<int>RG[1000];
+
+int color[1000];
+
+queue<int>q;
+
+stack<int>s;
+
+int cm;
 
 int node,edge;
 
-vector<int>v[1000];
-vector<int>Rv[1000];
-int color[1000];
-int visited[1000];
-vector<int>::iterator it;
-stack<int>s;
-int mark=0;
 
 
-void DFS(int n){
+void DFS1(int n){
 
-    color[n]=1;
-    int x;
 
-    for (int i = 0; i < v[n].size(); ++i) {
-        x = v[n][i];
-        if(color[x] == 0)
-        {
-            DFS(x);
+    color[n] = 1;
+
+    for (int i=0; i<G[n].size(); i++) {
+        int x = G[n][i];
+
+        if (color[x] == 0) {
+            DFS1(x);
         }
     }
-    color[n] = 2;
+
     s.push(n);
+
 
 }
 
 void DFS2(int n){
 
-    visited[n]=1;
-    int x;
 
-    for (int i = 0; i < Rv[n].size(); ++i) {
-        x = Rv[n][i];
-        if(visited[x] == 0)
+    color[n] = 1;
+
+    for (int i=0; i<RG[n].size(); i++) {
+        int x = RG[n][i];
+
+        if (color[x] == 0) {
+            cout<<x<<" ";
             DFS2(x);
+        }
     }
-    visited[n]=2;
 
 }
 
 
-int main() {
+void SCC(){
 
-
-    freopen("input.txt","r",stdin);
-
-    cin>>node>>edge;
-
-    for (int i = 1; i <= edge; ++i) {
-        int x,y;
-        cin>>x>>y;
-        v[x].push_back(y);
-        Rv[y].push_back(x);
-    }
-
-    for (int j = 1; j <= node; ++j) {
-        if (color[j] == 0)
-            DFS(j);
-    }
-
-
-    while (!s.empty()){
-
+    while (!s.empty()) {
         int x = s.top();
         s.pop();
-
-        if (visited[x] == 0)
-        {
+        if (color[x]==0) {
+            cm++;
+            cout<<x<<" ";
             DFS2(x);
+            cout<<endl;
         }
     }
-    cout<<mark<<endl;
+}
+
+
+int main(){
+
+   // rd;
+
+    cin>>node>>edge;
+    for (int i =0; i<edge; i++) {
+        int u, v;
+        cin>>u>>v;
+
+        G[u].push_back(v);
+        RG[v].push_back(u);
+
+    }
+    for (int i=1; i<=node; i++) {
+        if (color[i]==0) {
+            DFS1(i);
+        }
+
+    }
+
+    memset(color,0,sizeof(color));
+
+    SCC();
+
+    cout<<cm<<endl;
 
 
     return 0;

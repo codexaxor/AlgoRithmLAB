@@ -39,6 +39,7 @@ vector<PII>V[1000];
 struct Node{
 
     int u, cost;
+
     Node(){
 
     }
@@ -83,7 +84,7 @@ int prims(){
         taken[x.u] = 1;
         mst+=x.cost;
 
-        for (PII v : V[x.u]) {
+        for (auto v : V[x.u]) {
             if (taken[v.first])
                 continue;
 
@@ -102,6 +103,8 @@ int prims(){
 }
 
 int main(){
+
+    freopen("input.txt","r",stdin);
 
     cin>>n>>e;
 
