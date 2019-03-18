@@ -21,9 +21,6 @@ void prim(int s){
         mst+=dist[u];
         for (int i = 0; i < G[u].size(); ++i)
         {
-            int v = G[u][i].first;
-            int w = G[u][i].second;
-
             if ( G[u][i].second < dist[G[u][i].first])
             {
                 dist[G[u][i].first];
