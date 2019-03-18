@@ -1,120 +1,49 @@
-#include <list>
-#include <set>
-#include <map>
-#include <ctime>
-#include <stack>
-#include <queue>
-#include <cmath>
-#include <deque>
-#include <limits>
-#include <string>
-#include <cctype>
-#include <cstdio>
-#include <vector>
-#include <bitset>
-#include <numeric>
-#include <cassert>
-#include <sstream>
-#include <fstream>
-#include <cstdlib>
-#include <cstring>
-#include <utility>
-#include <complex>
-#include <iomanip>
-#include <iostream>
-#include <iterator>
-#include <algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
+#define pii pair<int,int>
+#define inf 1000009
+const int mx = 1e5+5;
+int dist[mx], N, E;
+vector<pii>G[mx];
+int mst=0;
 
+void prim(int s){
 
-#define inf 99999
-typedef pair<int,int>PII;
+    priority_queue<pii,vector<pii>, greater<pii> > q;
+    memset(dist,inf,sizeof(dist));
+    q.push(pii(0,s));
+    dist[s] = 0;
 
-int n, e, root=0;
+    while(!q.empty()){
 
-vector<PII>V[1000];
+        int u = q.top().second;
+        q.pop();
+        mst+=dist[u];
+        for (int i = 0; i < G[u].size(); ++i)
+        {
+            int v = G[u][i].first;
+            int w = G[u][i].second;
 
-
-struct Node{
-
-    int u, cost;
-
-    Node(){
-
-    }
-
-    Node(int _u, int _cost){
-        u = _u;
-        cost = _cost;
-    }
-
-};
-
-bool operator<(Node A, Node B){
-
-    return A.cost > B.cost;
-
-}
-
-priority_queue<Node>P;
-
-int cost[100];
-int taken[100];
-
-int prims(){
-
-    for (int i = 0; i < n; ++i) {
-        cost[i] = inf;
-        taken[i] = 0;
-    }
-
-    cost[root] = 0;
-    P.push(Node(root,0));
-    int mst = 0;
-
-    while (!P.empty()){
-
-        Node x = P.top();
-        P.pop();
-
-        if (taken[x.u])
-            continue;
-
-        taken[x.u] = 1;
-        mst+=x.cost;
-
-        for (auto v : V[x.u]) {
-            if (taken[v.first])
-                continue;
-
-            if (v.second < cost[v.first]){
-
-                P.push( Node(v.first,v.second) );
-                cost[v.first] = v.second;
+            if ( G[u][i].second < dist[G[u][i].first])
+            {
+                dist[G[u][i].first];
+                q.push(pii(dist[G[u][i].first],G[u][i].second));
             }
         }
 
-
     }
-
-    cout<<mst<<endl;
-
 }
 
-int main(){
-
-    freopen("input.txt","r",stdin);
-
-    cin>>n>>e;
-
-    for (int i = 0; i < e; ++i) {
-        int u,v,w;
+int main(int argc, char const *argv[])
+{
+    int u,v,w;
+    cin>>N>>E;
+    for (int i = 0; i < E; ++i)
+    {
         cin>>u>>v>>w;
-        V[u].push_back(make_pair(v,w));
-        V[v].push_back(make_pair(u,w));
+        G[u].push_back(pii(v,w));
+        G[u].push_back(pii(u,w));
     }
-
-    prims();
-
+    prim(0);
+    return 0;
 }
