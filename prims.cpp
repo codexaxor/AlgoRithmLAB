@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include "/Users/mac/stdc++.h"
 using namespace std;
 #define pii pair<int,int>
 #define inf 1000009
@@ -21,10 +21,10 @@ void prim(int s){
         mst+=dist[u];
         for (int i = 0; i < G[u].size(); ++i)
         {
-            if ( G[u][i].second < dist[G[u][i].first])
+            if ( dist[u] < dist[G[u][i].first])
             {
-                dist[G[u][i].first];
-                q.push(pii(dist[G[u][i].first],G[u][i].second));
+                dist[G[u][i].first] = dist[u];
+                q.push(pii(dist[G[u][i].first],G[u][i].first));
             }
         }
 
@@ -33,6 +33,7 @@ void prim(int s){
 
 int main(int argc, char const *argv[])
 {
+    freopen("input.txt","r",stdin);
     int u,v,w;
     cin>>N>>E;
     for (int i = 0; i < E; ++i)
@@ -42,5 +43,6 @@ int main(int argc, char const *argv[])
         G[u].push_back(pii(u,w));
     }
     prim(0);
+    cout<<mst<<endl;
     return 0;
 }
