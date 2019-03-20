@@ -12,9 +12,6 @@ using namespace std;
 #define MX 100005
 #define MOD 1000000007
 
-
-
-
 int node,edge;
 
 int parent[1000];
@@ -64,8 +61,6 @@ void mst(){
 }
 
 int main(){
-
-   // rd;
 
     cin>>node>>edge;
 
