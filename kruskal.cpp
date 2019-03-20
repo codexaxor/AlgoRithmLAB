@@ -1,5 +1,3 @@
-kruskal
-
 #include "/Users/mac/stdc++.h"
 //#include "/bits/stdc++.h"
 #define fst ios_base::sync_with_stdio(0); ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -69,10 +67,10 @@ int main(){
 
    // rd;
 
-    cin>>node>>eg;
+    cin>>node>>edge;
 
-    for (int i =0; i<eg; i++) {
-        edge e;
+    for (int i =0; i<edge; i++) {
+        GRAPH e;
         cin>>e.u>>e.v>>e.w;
         G.push_back(e);
 
