@@ -1,19 +1,9 @@
-#include "/Users/mac/stdc++.h"
-//#include <bits/stdc++.h>
-#define fst ios_base::sync_with_stdio(0); ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define PI acos(-1.0)
-//#define INF (1<<30)
+#include <bits/stdc++.h>
 using namespace std;
-#define rd freopen("ip.txt","r",stdin)
-#define wr freopen("op.txt", "w", stdout)
-#define mem(array,int) memeset(array,int,sizeof(array))
-#define lld long long int
-#define nl cout<<endl;
+
 #define MX 10005
-#define MOD 1000000007
-
-
 #define INF 1000009
+
 int N,E;
 
 struct GRAPH{
@@ -46,7 +36,6 @@ void BellmanFord(int s)
 
 int main(){
 
-    rd;
     int u,v,w;
     cin>>N>>E;
     for (int i=0; i<E; i++) {
