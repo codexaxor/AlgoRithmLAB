@@ -46,7 +46,7 @@ void DFS(int n){
 
 void TopSort(){
 
-    for (int i=0; i<node; i++) {
+    for (int i=1; i<=node; i++) {
         if (color[i] == 0) {
             DFS(i);
         }
